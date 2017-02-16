@@ -1,0 +1,16 @@
+# This dockerfile utilizes components licensed by their respective owners/authors.
+FROM microsoft/windowsservercore
+
+LABEL Description="JAMSAgent" Vendor="MVP Systems Software" Version="6.5.27"
+
+RUN @powershell wget https://s3-us-west-2.amazonaws.com/devontest/SetupAgentx64.msi -OutFile C:\SetupAgentx64.msi 
+RUN msiexec /i "SetupAgentx64.msi" /qn
+RUN @powershell Remove-Item C:\SetupAgentx64.msi
+RUN net user jamsuser jamspass1! /ADD
+RUN @powershell wget https://chocolatey.org/install.ps1 -OutFile C:\chocolatey.ps1
+RUN @powershell C:\chocolatey.ps1
+RUN @powershell choco install Carbon -y
+RUN PowerShell -Command \ 
+	Import-Module Carbon; \
+	Grant-Privilege -Identity jamsuser -Privilege SeBatchLogonRight; \
+	Remove-Item C:\chocolatey.ps1 \
