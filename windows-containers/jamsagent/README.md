@@ -1,7 +1,9 @@
 # Description:
 Creates an image running the x64 JAMS Agent, handling the setup of a Run As user with the proper Logon as Batch Rights being granted via Carbon.
 
-It is recommended the user and/or password for the Run As user is updated in the dockerfile prior to building the image. This is merely here to serve as an example, or for initial testing purposes within your environment.
+It is recommended the user and/or password for the run as user (created on line 9) is updated in the dockerfile prior to building the image. This is merely here to serve as an example, or for initial testing purposes within your environment.
+
+This dockerfile references an Agent download from Amazon S3 utilized during initial testing, though it is recommended you utilize an Agent Installation corresponding to your own JAMS environment.
 
 # Environment:
 Windows Server Core
